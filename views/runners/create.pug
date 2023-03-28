@@ -1,0 +1,33 @@
+extends ../layout 
+
+
+block content 
+    a(href='/runners') Volver 
+
+    br
+    br
+    br
+
+    h1 New Runner 
+
+    br
+    br
+
+    form(action='/runners/create' method='post')
+        label(for='id') ID: 
+        input#id(type='text' name='id')
+        br
+        label(for='gender') Gender: 
+        input#id(type='text' name='gender')
+        br
+        label(for='age') Age: 
+        input#id(type='text' name='age')
+        br
+        label(for='lat') Latitude: 
+        input#id(type='text' name='lat')
+        br
+        label(for='lng') Length: 
+        input#id(type='text' name='lng')
+        br
+        br
+        input.btn(type='submit' value='OK')

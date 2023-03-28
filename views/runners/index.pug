@@ -1,0 +1,28 @@
+extends ../layout 
+
+block content
+    a(href='/runners/create') New Runner
+
+    table.table
+        thead 
+            tr 
+                th(scope='col') #
+                th(scope='col') Gender 
+                th(scope='col') Age 
+                th(scope='col') location 
+                th(scope='col')
+        tbody 
+            each runner in runners 
+                tr 
+                    td(scope='row') 
+                        = runner.id 
+                    td= runner.gender 
+                    td= runner.age 
+                    td= runner.location
+                    td 
+                        a(href= 'runners/' + runner.id + '/update') Update
+                    td
+                        form.inline(method='post' action='runners/' + runner.id + '/delete')
+                            input(type='hidden' name='id' value=runner.id)
+                            button.link-button(type='submit' name='submit_param' value='submit_value' class='btn')
+                                = 'Delete'

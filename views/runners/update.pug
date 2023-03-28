@@ -1,0 +1,33 @@
+extends ../layout 
+
+
+block content 
+    a(href='/runners') Volver 
+
+    br
+    br
+    br
+
+    h1 Update Runner 
+
+    br
+    br
+
+    form(action=`/runners/${runner.id}/update` method='post')
+        label(for='id') ID: 
+        input#id(type='text' name='id' value=runner.id)
+        br
+        label(for='gender') Gender: 
+        input#id(type='text' name='gender' value=runner.gender)
+        br
+        label(for='age') Age: 
+        input#id(type='text' name='age' value=runner.age)
+        br
+        label(for='lat') Latitude: 
+        input#id(type='text' name='lat' value=runner.location[0])
+        br
+        label(for='lng') Length: 
+        input#id(type='text' name='lng' value=runner.location[1])
+        br
+        br
+        input.btn(type='submit' value='OK')
