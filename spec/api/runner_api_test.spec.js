@@ -2,7 +2,7 @@ var Runner = require('../../models/Runner');
 var request = require('request');
 var server = require('../../bin/www');
 
-
+beforeEach(function(){console.log('testeando…'); })
 beforeEach(() => { Runner.allRunners = []; });
 
 
