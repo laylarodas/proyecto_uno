@@ -25,10 +25,9 @@ runnerSchema.methods.toString = function () {
     return 'code: ' + this.code + '| color: ' + this.gender;
 };
 
-runnerSchema.statics.toString = function (cb) {
+runnerSchema.statics.allRunners = function (cb) {
     return this.find({}, cb);
 };
-
 
 
 

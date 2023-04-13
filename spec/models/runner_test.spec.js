@@ -33,6 +33,16 @@ describe('Testing Runners', function () {
             expect(runner.location[1]).toEqual(-54.1);
         });
     });
+
+
+    describe('Runner.allRunners', () => {
+        it('comienza vacia', (done) => {
+            Runner.allRunners(function (err, runners) {
+                expect(runners.length).toBe(0);
+                done();
+            })
+        })
+    })
     
 });
 
