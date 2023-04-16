@@ -4,7 +4,8 @@ var mongoose = require('mongoose');
 describe('Testing Runners', function () {
     beforeEach(function (done) {
         var mongoDB = 'mongodb://localhost/testdb';
-        mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true});
+        mongoose.connect(mongoDB,{useNewUrlParser: true, useUnifiedTopology: true});
+        
 
         const db = mongoose.connection;
         db.on('error', console.error.bind(console, 'connection error'));
@@ -13,11 +14,10 @@ describe('Testing Runners', function () {
             done();
         });
     });
-
     afterEach(function (done) {
         Runner.deleteMany({})
-        .catch(err => {
-            console.log(err)
+        .catch(error => {
+            console.log(error)
         });
         done();
     });
@@ -42,7 +42,78 @@ describe('Testing Runners', function () {
                 done();
             })
         })
-    })
+    });
+
+
+    describe('Runner.add', () => {
+            it('Agrega solo una runner', (done) => {
+                var aRunner = new Runner({code: 1, gender: "Female", age: "26"});
+                Runner.add(aRunner, function(err, newRunner){
+                    if (err) console.log(err);
+                    Runner.allRunner(function(err, runners){
+                        expect(runners.length).toEqual(1);
+                        expect(runners[0].code).toEqual(aRunner.code);
+    
+                        done();
+                    });
+                });
+            });
+        });
+    
+    describe('Runner.findByCode', () => {
+        it('Debe devolver la runner con code 1', (done) => {
+            Runner.allRunner(function(err, runners){
+                expect(runners.length).toBe(0);
+
+                var aRunner = new Runner({code: 1, gender: "Female", age: "26"});
+                Runner.add(aRunner, function(err, newRunner){
+                    if (err) console.log(err);
+
+                    var aRunner2 = new Runner({code: 2, gender: "roja", age: "26"});
+                    Runner.add(aRunner2, function(err, newRunner){
+                        if (err) console.log(err);
+                        Runner.findByCode(1, function(error, targetRunner){
+                            expect(targetRunner.code).toBe(aRunner.code);
+                            expect(targetRunner.gender).toBe(aRunner.gender);
+                            expect(targetRunner.age).toBe(aRunner.age);
+        
+                            done();
+                        });
+                    });
+
+                });
+            });
+            
+        });
+    });
+    
+    describe('Runner.removeByCode', () => {
+        it('Debe eliminar la runner con code 1', (done) => {
+            Runner.allRunner(function(err, runners){
+                expect(runners.length).toBe(0);
+
+                var aRunner = new Runner({code: 1, gender: "Female", age: "26"});
+                Runner.add(aRunner, function(err, newRunner){
+                    if (err) console.log(err);
+
+                    var aRunner2 = new Runner({code: 2, gender: "roja", age: "26"});
+                    Runner.add(aRunner2, function(err, newRunner){
+                        if (err) console.log(err);
+
+                        Runner.removeByCode(1, function(error, targetRunner){
+                            Runner.allRunner(function(err, runners){
+                                expect(runners.length).toBe(1);
+                                done();
+                            });
+                        });
+                    });
+
+                });
+            });
+            
+        });
+    });
+
     
 });
 

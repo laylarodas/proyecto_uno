@@ -29,7 +29,17 @@ runnerSchema.statics.allRunners = function (cb) {
     return this.find({}, cb);
 };
 
+runnerSchema.statics.add = function (aRunner, cb) {
+    this.create(aRunner, cb);
+}
 
+runnerSchema.statics.findByCode = function (aCode, cb) {
+    return this.findOne({code: aCode}, cb);
+}
+
+runnerSchema.statics.removeByCode = function (aCode, cb) {
+    return this.deleteOne({code: aCode}, cb);
+}
 
 module.exports = mongoose.model('Runner', runnerSchema);
 
